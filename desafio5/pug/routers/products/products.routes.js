@@ -7,9 +7,14 @@ const router = express.Router();
 
 //Routes
 router.get('/', (req, res) => {     
-    let productsResponse = [...products];    
-    return res.json({success: true, result: productsResponse });      
-  });
+  let productsResponse = [...products];    
+
+  res.render("vista", {
+    productos: productsResponse,
+    hayProductos: productsResponse.length
+});
+  //return res.json({success: true, result: productsResponse });      
+});
 
   router.get('/:Id', (req, res) => {
     const { Id } =  req.params;
@@ -20,7 +25,7 @@ router.get('/', (req, res) => {
     return res.json({ success: true, result: product });
   });
   
-router.post('/', (req, res) => {
+  router.post('/', (req, res) => {
     const { name, price, image } = req.body;
     if ( !name || !price || !image) {
       return res.status(400).json({ succes: false, error: 'Faltan datos' });
@@ -32,7 +37,8 @@ router.post('/', (req, res) => {
       image
     };    
     products.push(newProduct);
-    return res.json({ success: true, result: newProduct });
+    return res.redirect('/');
+    //return res.json({ success: true, result: newProduct });
   });
   
 router.put('/:Id', (req, res) => {

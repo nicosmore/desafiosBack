@@ -8,7 +8,12 @@ const router = express.Router();
 //Routes
 router.get('/', (req, res) => {     
     let productsResponse = [...products];    
-    return res.json({success: true, result: productsResponse });      
+
+    res.render("vista", {
+      productos: productsResponse,
+      hayProductos: productsResponse.length
+  });
+    //return res.json({success: true, result: productsResponse });      
   });
 
   router.get('/:Id', (req, res) => {
@@ -32,7 +37,8 @@ router.post('/', (req, res) => {
       image
     };    
     products.push(newProduct);
-    return res.json({ success: true, result: newProduct });
+    return res.redirect('/');
+    //return res.json({ success: true, result: newProduct });
   });
   
 router.put('/:Id', (req, res) => {

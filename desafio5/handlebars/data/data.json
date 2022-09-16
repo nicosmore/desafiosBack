@@ -1,0 +1,33 @@
+{
+  "products":[
+    {
+      "id": 1,
+      "name": "auto",
+      "price": 323.45,
+      "image": "https://cdn1.iconfinder.com/data/icons/cars-01-1/512/car-128.png"
+    },
+    {
+      "id": 2,
+      "name": "camioneta",
+      "price": 234.56,
+      "image": "https://cdn1.iconfinder.com/data/icons/cars-01-1/512/cab-128.png"
+    }, 
+    {
+      "id": 3,
+      "name": "camion",
+      "price": 234.56,
+      "image": "https://cdn1.iconfinder.com/data/icons/cars-01-1/512/truck-128.png"
+    }      
+  ],
+  "usuarios":[
+    {
+      "nombre":"jose",
+      "edad":20
+    },
+    {
+      "nombre":"juan",
+      "edad":17
+    }
+  ]
+  
+}
