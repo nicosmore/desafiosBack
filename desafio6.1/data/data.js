@@ -15,7 +15,7 @@ const products = [
 ];
 
 class Products {
-  //static lastProductId = products[products.length - 1].id;
+  static lastProductId = products[products.length - 1].id;
   
   constructor() {
     this.list = products;
