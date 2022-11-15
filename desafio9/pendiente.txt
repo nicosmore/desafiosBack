@@ -1,0 +1,2 @@
+CLASE: 22. Trabajo con datos: Normalización
+Desafío: Mocks y normalización
