@@ -31,7 +31,7 @@ app.use(
     rolling: true, //recarga maxEdge
     store: MongoStore.create({
       mongoUrl:
-        "mongodb+srv://nicosmore:<pasword>@coder.3ctyud1.mongodb.net/sessions?retryWrites=true&w=majority",
+        "mongodb+srv://nicosmore:11cacatua@coder.3ctyud1.mongodb.net/sessions?retryWrites=true&w=majority",
     }),
     cookie: {maxAge: 60000} //1 minuto
   })

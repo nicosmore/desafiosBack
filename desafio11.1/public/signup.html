@@ -12,10 +12,13 @@
 <body class="col">
     <div class="container col-5 mt-5">        
         <div class="border p-2 m-3">            
-            <h4 class="text-center">Login</h4>
+            <h4 class="text-center">Registro</h4>
             <br>
-            <form id="loginForm" class="" action="/login" method="post">
-                
+            <form id="signupForm" class="" action="/login" method="post">
+                <div class="form-group">
+                    <label for="email">Nombre</label>
+                    <input id="name" class="form-control " type="text" step="0.01" name="name" required>
+                </div>
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input id="email" class="form-control " type="email" step="0.01" name="email" required>
@@ -24,19 +27,19 @@
                     <label for="password">Password</label>
                     <input id="password" class="form-control " type="password" name="password" required>
                 </div>  
-                 <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-success mt-3">Enviar</button>                    
-                 </div> 
-                 <div class="d-flex justify-content-center">
-                    <button type="submit" onclick="return signup()" class="btn btn-primary mt-3">Ir a Registro</button>                    
-                </div>            
+                </div> 
+                <div class="d-flex justify-content-center">
+                    <button type="submit" onclick="return login()" class="btn btn-primary mt-3">Ir a Login</button>                    
+                </div>           
                 
             </form>            
             <br>           
         </div>
     </div> 
-    <script>function signup () {
-        window.location = '/signup.html';
+    <script>function login () {
+        window.location = '/login.html';
       };
     </script>
 </body>

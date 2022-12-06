@@ -5,19 +5,16 @@ const auth = require("./middlewares/auth");
 const users = require("./db/data/users.json");
 const { Server: HttpServer } = require("http");
 const { Server: SocketServer } = require("socket.io");
-const { formatMessage } = require("./utils/utils");
 const SQLClient = require("./db/clients/cql.clients");
 const dbConfig = require("./db/config");
 const console = require("console");
-const handlebars = require('express-handlebars')
+const handlebars = require("express-handlebars");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 const httpServer = new HttpServer(app);
 const io = new SocketServer(httpServer);
 const mariaDB = new SQLClient(dbConfig.mariaDB);
-const sqliteDB = new SQLClient(dbConfig.sqlite);
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -31,27 +28,22 @@ app.use(
     rolling: true, //recarga maxEdge
     store: MongoStore.create({
       mongoUrl:
-        "mongodb+srv://nicosmore:<pasword>@coder.3ctyud1.mongodb.net/sessions?retryWrites=true&w=majority",
+        "mongodb+srv://nicosmore:11cacatua@coder.3ctyud1.mongodb.net/sessions?retryWrites=true&w=majority",
     }),
-    cookie: {maxAge: 60000} //1 minuto
+    cookie: { maxAge: 60000 }, //1 minuto
   })
 );
 app.engine(
   "hbs",
   handlebars({
-      extname: ".hbs", 
-      defaultLayout: '../logoutUser.hbs',     
+    extname: ".hbs",
+    defaultLayout: "../logoutUser.hbs",
   })
 );
 app.set("view engine", "hbs");
 app.set("views", "./public");
 
-//Listen
-httpServer.listen(PORT, () => {
-  console.log("listening on port " + PORT);
-});
 
-const usersSocket = [];
 
 app.get("/", async (req, res) => {
   const user = await req.session.user;
@@ -72,8 +64,8 @@ app.get("/form", auth, async (req, res) => {
     console.log(socket.id);
 
     let username = userData.name;
-    socket.emit("header", username); 
-    socket.emit("logoutUser", username);    
+    socket.emit("header", username);
+    socket.emit("logoutUser", username);
 
     mariaDB.creatTable("productos");
 
@@ -86,48 +78,20 @@ app.get("/form", auth, async (req, res) => {
       mariaDB.getRecords("productos").then((data) => {
         socket.emit("products", data);
       });
-    });
+    }); 
+  })
+})
 
-    sqliteDB.createTableMessage("mensajes");
-
-    sqliteDB
-      .getMessages("mensajes")
-      .then((data) => socket.emit("message", data));
-
-    socket.on("newUser", (username) => {
-      const newUser = {
-        id: socket.id,
-        username: username,
-      };
-      users.push(newUser);
-    });
-
-    socket.on("newMessage", (data) => {
-      const user = usersSocket.find((user) => user.id === socket.id);
-      const newMessage = formatMessage(user.username, data);
-      console.log("socket newMessage");
-      sqliteDB.insertRecords("mensajes", newMessage);
-      //messages.push(newMessage);
-      io.emit("chatMessage", newMessage);
-    });
-    socket.on("disconnect", () => {
-      io.emit("userDisconnected", `${socket.id}`);
-    });
-  });
-
-  //res.render("header", {sessionUser: user});
-});
-
-app.get("/logout", auth, async (req, res) => {  
+app.get("/logout", auth, async (req, res) => {
   const nameUser = await req.session.user.name;
   try {
     req.session.destroy((err) => {
       if (err) {
         console.log(err);
         res.clearCookie("my-session");
-      } else {                     
-        res.render('logoutUser', {nameUser});  
-        res.clearCookie("my-session");      
+      } else {
+        res.render("logoutUser", { nameUser });
+        res.clearCookie("my-session");
       }
     });
   } catch (err) {
