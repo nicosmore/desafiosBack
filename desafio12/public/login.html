@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Document</title>
+</head>
+<body class="col">
+    <div class="container col-5 mt-5">        
+        <div class="border p-2 m-3">            
+            <h4 class="text-center">Login</h4>
+            <br>
+            <form id="loginForm" class="" action="api/auth/login" method="post">
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" class="form-control " type="email" step="0.01" name="username" required>
+                </div> 
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input id="password" class="form-control " type="password" name="password" required>
+                </div>  
+                 <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success mt-3">Enviar</button>                    
+                 </div> 
+                 <div class="d-flex justify-content-center">
+                    <button type="submit" onclick="return signup()" class="btn btn-primary mt-3">Registrarse</button>                    
+                 </div>           
+                
+            </form>            
+            <br>           
+        </div>
+    </div>    
+    <script>function signup() {
+        window.location = '/signup.html';
+      }; 
+    </script>
+</body>
+</html>
