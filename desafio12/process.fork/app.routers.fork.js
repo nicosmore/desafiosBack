@@ -17,7 +17,7 @@ router.get("/randoms", (req, res) => {
 });
 
 router.get("/info", (req, res) => {
-  res.send(`    
+  res.send(`      
     <h4>Plataforma:${process.platform}</h4>
     <h4>Node:${process.version}</h4>
     <h4>Memoria:${process.memoryUsage()}</h4>
