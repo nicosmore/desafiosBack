@@ -1,0 +1,2 @@
+CLASE: 32. Logs, profiling & debug - Parte II
+Desafío: Loggers, gzip y análisis de performance
