@@ -1,0 +1,92 @@
+Punto 1:
+resultados en resultados/prof
+
+node --prof appProcess.js 
+
+Sin "compression()"
+
+    node --prof-process result.log > resultprof.txt
+
+    [Summary]:
+    ticks  total  nonlib   name
+        10    0.0%  100.0%  JavaScript
+        0    0.0%    0.0%  C++
+        2    0.0%   20.0%  GC
+    39221  100.0%          Shared libraries
+
+Con "compression()"
+
+    node --prof-process resultzip.log > resultprofzip.txt
+
+    [Summary]:
+    ticks  total  nonlib   name
+        6    0.0%  100.0%  JavaScript
+        0    0.0%    0.0%  C++
+        4    0.0%   66.7%  GC
+    28346  100.0%          Shared libraries
+
+Sin "compression()"
+
+    artillery quick --count 20 -n 50 "http://localhost:8080/api/info" > result.txt
+        
+        http.response_time:
+        min: .................................. 0
+        max: .................................. 7
+
+Con "compression()"
+
+    artillery quick --count 20 -n 50 "http://localhost:8080/api/infozip" > resultzip.txt
+        
+        http.response_time:
+        min: .................................. 0
+        max: .................................. 24
+
+   
+autocannon en archivo benchmark.js
+
+Ejacucion:
+    0x appProcess.js
+    npm test
+
+Sin "compression()"
+
+    Running 20s test @ http://localhost:8080/api/info
+    100 connections
+
+
+    ┌─────────┬───────┬───────┬───────┬───────┬──────────┬─────────┬────────┐
+    │ Stat    │ 2.5%  │ 50%   │ 97.5% │ 99%   │ Avg      │ Stdev   │ Max    │
+    ├─────────┼───────┼───────┼───────┼───────┼──────────┼─────────┼────────┤
+    │ Latency │ 11 ms │ 15 ms │ 26 ms │ 32 ms │ 15.59 ms │ 4.32 ms │ 109 ms │
+    └─────────┴───────┴───────┴───────┴───────┴──────────┴─────────┴────────┘
+    ┌───────────┬─────────┬─────────┬─────────┬─────────┬─────────┬────────┬─────────┐
+    │ Stat      │ 1%      │ 2.5%    │ 50%     │ 97.5%   │ Avg     │ Stdev  │ Min     │
+    ├───────────┼─────────┼─────────┼─────────┼─────────┼─────────┼────────┼─────────┤
+    │ Req/Sec   │ 3341    │ 3341    │ 6475    │ 6703    │ 6218.35 │ 730.41 │ 3341    │
+    ├───────────┼─────────┼─────────┼─────────┼─────────┼─────────┼────────┼─────────┤
+    │ Bytes/Sec │ 2.19 MB │ 2.19 MB │ 4.24 MB │ 4.39 MB │ 4.07 MB │ 479 kB │ 2.18 MB │
+    └───────────┴─────────┴─────────┴─────────┴─────────┴─────────┴────────┴─────────┘
+
+    Req/Bytes counts sampled once per second.
+    # of samples: 20
+
+Running 20s test @ http://localhost:8080/api/infozip
+100 connections
+
+Con "compression()"
+
+    ┌─────────┬───────┬───────┬───────┬───────┬──────────┬─────────┬────────┐
+    │ Stat    │ 2.5%  │ 50%   │ 97.5% │ 99%   │ Avg      │ Stdev   │ Max    │
+    ├─────────┼───────┼───────┼───────┼───────┼──────────┼─────────┼────────┤
+    │ Latency │ 12 ms │ 17 ms │ 30 ms │ 35 ms │ 18.13 ms │ 5.35 ms │ 131 ms │
+    └─────────┴───────┴───────┴───────┴───────┴──────────┴─────────┴────────┘
+    ┌───────────┬─────────┬─────────┬─────────┬─────────┬─────────┬────────┬─────────┐
+    │ Stat      │ 1%      │ 2.5%    │ 50%     │ 97.5%   │ Avg     │ Stdev  │ Min     │
+    ├───────────┼─────────┼─────────┼─────────┼─────────┼─────────┼────────┼─────────┤
+    │ Req/Sec   │ 2987    │ 2987    │ 5559    │ 5943    │ 5367.45 │ 632.58 │ 2986    │
+    ├───────────┼─────────┼─────────┼─────────┼─────────┼─────────┼────────┼─────────┤
+    │ Bytes/Sec │ 2.02 MB │ 2.02 MB │ 3.76 MB │ 4.03 MB │ 3.63 MB │ 429 kB │ 2.02 MB │
+    └───────────┴─────────┴─────────┴─────────┴─────────┴─────────┴────────┴─────────┘
+
+    Req/Bytes counts sampled once per second.
+    # of samples: 20
