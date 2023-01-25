@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 const path = require('path');
 const express = require('express');
 const apiRoutes = require('./api/api.routes');
